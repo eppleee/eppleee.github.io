@@ -1,5 +1,5 @@
 body {
-    font-family: Typewriter, Caviar Dreams;
+    font-family: "Typewriter", "Caviar Dreams", sans-serif;;
     margin: 0;
     padding: 0;
     background-color: #ffc4d1;
@@ -12,12 +12,14 @@ h1 {
 
 p {
     font-size: 18px;
-    color: #FBFBFF;
+    color: ##11151C;
 }
 
 .name {
+    position: absolute;
+    top: 10px;
+    right: 20px;
     color: white;
     font-size: 20px;
     font-weight: bold;
-    margin-right: 20px;
 }
