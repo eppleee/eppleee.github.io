@@ -5,21 +5,18 @@ body {
     background-color: #ffc4d1;
     text-align: center;
 }
-
-/* h1 {
-    color: #11151C;
-}
- */
 p {
     font-size: 18px;
     color: ##11151C;
 }
 
-.name {
+.name h1 {
+    text-align: right; /* Override any centering */
     position: absolute;
     top: 10px;
     right: 20px;
-    color: white;
-    font-size: 20px;
+    color: white !important; /* Forces white text */
+    font-size: 24px;
     font-weight: bold;
 }
+
