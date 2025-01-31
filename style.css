@@ -7,8 +7,8 @@ body {
 }
 
 header {
-    background-color: #dd0457e3;
-    color: #dd0457e3;
+    background-color: #e789adf5;
+    color: white;
     padding: 20px;
 }
 
@@ -17,5 +17,4 @@ section {
     paddling: 20px;
     background: #f396aa;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px #fefffe;
-}
+    box-shadow: 0px 0px 10px;
