@@ -6,13 +6,9 @@
 
 body {
     font-family: 'Typewriter', 'Caviar Dreams', sans-serif;
-    background-color: #dd0426;
+    background-color: #f6839c;
     color: #fefffe;
     padding: 20px;
-    background-image: url('https://pnghq.com/wp-content/uploads/2023/02/glitter-pink-aesthetic-background-png-3826-987x1024.png');
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 100%;
 }
 
 header {
@@ -37,7 +33,7 @@ section {
 }
 
 h2 {
-    color: #ffb3d9;
+    color: #f02d3a;
     font-size: 2em;
     margin-bottom: 10px;
 }
