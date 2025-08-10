@@ -1,11 +1,19 @@
+import React from 'react';
+import './index.css';
+import introImg from './assets/tree-branch.png';
 
 function Header() {
 
     return (
-        <header className="bg-primary text-primary-foreground p-4">
-            <h1 className="text-2xl font-bold mb-4">Welcome to My Website</h1>
-            <hr className="mt-4 border-border"></hr>
-        </header>
+        <section className="header">
+            <div className = "intro">
+                <span className="name">Kourtney Giles</span>
+                <span className="intro-text">Web Developer</span>
+
+            </div>
+            <img src = {introImg} alt = "tree-branch" className = "intro-image top-left" />
+            <img src = {introImg} alt = "tree-branch" className = "intro-image bottom-right" />
+        </section>
     );
 }
 export default Header;
