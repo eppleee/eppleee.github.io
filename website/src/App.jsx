@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
+import Nav from './components/Nav.tsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
-import Nav from './components/Nav.tsx';
-import Sections from './pages/Sections.jsx';
-import Card from './components/Card.jsx';
-import Button from './components/Button.jsx';
-import Projects from './pages/Projects.jsx';
 
 function App() {
   const [isDark, setIsDark] = useState(false);
