@@ -1,37 +1,38 @@
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-scroll';
+import logo from '../assets/pfpPic.jpg';
+import './components.css';
+
+/*navbar fixed top-0 left-0 h-screen w-48 flex flex-col items-start bg-primary p-4 z-50 shadow-lg
+^^ this is what i was using to make it start at the left side of the site but i removed it for now*/
 
 function Nav() {
-    return (
-        <nav className="navbar fixed top-0 left-0 h-screen w-48 flex flex-col items-start bg-primary p-4 z-50 shadow-lg">
-            <a
-                href="#"
-                className="flex items-center px-3 py-2 text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
-            >
-                <span className="text-lg mr-3">♥</span>
-                <span>Home</span>
-            </a>
-            <a
-                href="#about"
-                className="flex items-center px-3 py-2 text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
-            >
-                <span className="text-lg mr-3">👤</span>
-                <span>About</span>
-            </a>
-            <a
-                href="#projects"
-                className="flex items-center px-3 py-2 text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
-            >
-                <span className="text-lg mr-3">💼</span>
-                <span>Projects</span>
-            </a>
-            <a
-                href="#contact"
-                className="flex items-center px-3 py-2 text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
-            >
-                <span className="text-lg mr-3">📧</span>
-                <span>Contact</span>
-            </a>
-        </nav>
-    );
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100); // adjust scroll threshold here
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <nav className={`navbar ${isScrolled ? 'horizontal' : 'vertical'}`}>
+      <img src={logo} alt="pfpPic" className='logo'></img>
+      <div className="desktopMenu">
+        <Link className="desktopMenuItem" to="home" smooth={true}> Home</Link>
+        <Link className="desktopMenuItem" to="about" smooth={true}> About</Link>
+        <Link className="desktopMenuItem" to="projects" smooth={true}> Projects</Link>
+        <Link className="desktopMenuItem" to="resume" smooth={true}> Resume</Link>
+      </div>
+
+      <button className="desktopMenuBtn"> Contact</button>
+    </nav>
+  );
 }
 
 export default Nav;
