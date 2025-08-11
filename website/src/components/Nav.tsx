@@ -27,10 +27,10 @@ function Nav() {
         <Link className="desktopMenuItem" to="home" smooth={true}> Home</Link>
         <Link className="desktopMenuItem" to="about" smooth={true}> About</Link>
         <Link className="desktopMenuItem" to="projects" smooth={true}> Projects</Link>
-        <Link className="desktopMenuItem" to="resume" smooth={true}> Resume</Link>
+        <Link className="desktopMenuItem" to="contact" smooth={true}> Contact</Link>
       </div>
 
-      <button className="desktopMenuBtn"> Contact</button>
+      <button className="desktopMenuBtn"> Resume</button>
     </nav>
   );
 }
