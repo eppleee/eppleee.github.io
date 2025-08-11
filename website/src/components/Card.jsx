@@ -1,13 +1,20 @@
-/*i took out the import of the profilePic because i was giving me an error and I wasnt using it at the moment
-Ill come back later to fix it*/
+import React from 'react';
+import './components.css';
+import profilePic from '../assets/pfpPic.jpg';
 
-function Card(){
-    return(
-        <div className = "card">
-            <img className= "card-img" src = {profilePic} alt = "project image"></img>
-            <h2 className = "card-title">Kourtney</h2>
-            <p>Web Developer</p>
+function Card({ title, role, imgSrc, description }) {
+    return (
+        <div className="card-container">
+            <div className="card-image">
+                <img src={imgSrc || profilePic} alt={title} />
+            </div>
+            <div className="card-info">
+                <h2>{title}</h2>
+                <p>{role}</p>
+                <p className="desc">{description}</p>
+            </div>
         </div>
-    )
-} 
+    );
+}
+
 export default Card;
