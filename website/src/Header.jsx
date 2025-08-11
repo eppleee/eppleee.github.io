@@ -7,7 +7,7 @@ function Header() {
     return (
         <section className="header">
             <div className = "intro">
-                <span className="name">Kourtney Giles</span>
+                <span className="intro-name">Kourtney Giles</span>
                 <span className="intro-text">Web Developer</span>
 
             </div>
