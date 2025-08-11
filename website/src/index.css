@@ -52,7 +52,7 @@ html {
   text-align: center;
 }
 
-.name{
+.intro-name{
   font-size: 2rem;
   font-weight: bold;
   color: #ffecec;
@@ -66,33 +66,6 @@ html {
   margin-top: 1rem;
 }
 
-
-.card {
-  border: 1px solid white;
-  border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.048);
-  padding: 20px;
-  margin: 10px;
-  text-align: center;
-  max-width: 250PX;
-  display: inline-block;
-  background-color: rgba(240, 248, 255, 0.397);
-}
-
-.card .card-img {
-  max-width: 60%;
-  height: auto;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-
-.card .card-title {
-  font-family: 'Times New Roman', Times, serif;
-  margin: 0;
-  color: #2B2B2B;
-
-}
 
 .darkMode {
   border: 1px solid rgb(247, 245, 245);
