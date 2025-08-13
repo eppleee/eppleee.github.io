@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-scroll';
-import logo from '../assets/pfpPic.jpg';
+import logo from '../assets/epple.png';
 import './components.css';
-
-/*navbar fixed top-0 left-0 h-screen w-48 flex flex-col items-start bg-primary p-4 z-50 shadow-lg
-^^ this is what i was using to make it start at the left side of the site but i removed it for now*/
 
 function Nav() {
 
@@ -13,24 +10,56 @@ function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100); // adjust scroll threshold here
+      setIsScrolled(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setIsDark(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
+  const toggleDarkMode = () => {
+    setIsDark(!isDark);
+  };
+
   return (
     <nav className={`navbar ${isScrolled ? 'horizontal' : 'vertical'}`}>
       <img src={logo} alt="pfpPic" className='logo'></img>
       <div className="desktopMenu">
-        <Link className="desktopMenuItem" to="home" smooth={true}> Home</Link>
-        <Link className="desktopMenuItem" to="about" smooth={true}> About</Link>
-        <Link className="desktopMenuItem" to="projects" smooth={true}> Projects</Link>
-        <Link className="desktopMenuItem" to="contact" smooth={true}> Contact</Link>
+        <Link className="desktopMenuItem" to="home" spy smooth duration={500} offset={-80} activeClass="active">Home</Link>
+        <Link className="desktopMenuItem" to="about" spy smooth duration={500} offset={-80} activeClass="active">About</Link>
+        <Link className="desktopMenuItem" to="projects" spy smooth duration={500} offset={-80} activeClass="active">Projects</Link>
+        <Link className="desktopMenuItem" to="contact" spy smooth duration={500} offset={-80} activeClass="active">Contact</Link>
       </div>
 
-      <button className="desktopMenuBtn"> Resume</button>
+      <div className="buttonGroup">
+        <a
+          href="/Kourtney Giles Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="desktopMenuBtn"
+        >
+          Resume
+        </a>
+        <button onClick={toggleDarkMode} className="darkMode">
+          {isDark ? '🩷' : '🤍'}
+        </button>
+      </div>
     </nav>
   );
 }
