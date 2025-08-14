@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Element } from 'react-scroll';
 import '../pages/pages.css';
 import flowerStars from '../assets/petals-with-stars.png';
@@ -26,7 +26,7 @@ import javaImg from '../assets/java.png';
 
 function About() {
 
-    const images = [gradImg,  secondImg,thirdImg,];
+    const images = [gradImg, secondImg, thirdImg,];
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextImage = () => {
@@ -40,6 +40,33 @@ function About() {
             prevIndex === 0 ? images.length - 1 : prevIndex - 1
         );
     };
+
+    useEffect(() => {
+        const els = document.querySelectorAll('.about-text p, .about-text2 p');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const parent = entry.target.closest('.about-text, .about-text2');
+                    const siblings = parent ? Array.from(parent.querySelectorAll('p')) : [];
+                    const index = siblings.indexOf(entry.target);
+
+                    const delayMs = 300;
+                    entry.target.style.transitionDelay = `${index * delayMs}ms`;
+
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -8% 0px'
+        });
+
+        els.forEach(el => observer.observe(el));
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <>
             <Element name="about">
