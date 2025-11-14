@@ -1,22 +1,20 @@
 import Nav from './components/Nav.tsx';
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
+import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Projects from './pages/Projects.jsx';
 import Contact from './pages/Contact.jsx';
+import './styles/global.css';
 
 function App() {
 
   return (
-    <>
-        <Nav />
-        <Header />
-        <About />
-        <Projects />
-        <Contact />
-        <Footer />
-
-    </>
+    <div className="min-h-screen">
+      <Nav />
+      <Home />
+      <About />
+      <Projects />
+      <Contact />
+    </div >
   );
 }
 
