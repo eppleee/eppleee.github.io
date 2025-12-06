@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Import project custom styles after Tailwind so utilities can be applied */
+@import './styles/global.css';
+
+/* Any additional global custom styles can go here */
