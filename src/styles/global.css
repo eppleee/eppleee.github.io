@@ -46,7 +46,7 @@
 .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
-    --card: oklch(0.145 0 0);
+    --card: oklch(99.183% 0.00104 11.182);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.145 0 0);
     --popover-foreground: oklch(0.985 0 0);
@@ -200,7 +200,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    filter: blur(10px);
+    filter: blur(5rem);
     opacity: 0.7;
     animation: blur-pulse 3s ease-in-out infinite;
 }
@@ -219,6 +219,29 @@ html {
     }
 }
 
+@keyframes blurFadeIn {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: scale(1.05);
+    }
+
+    50% {
+        opacity: 0.6;
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+    }
+}
+
+.animate-blur-fade {
+    animation: blurFadeIn 10s ease-out forwards;
+}
+
 @keyframes gradient-shift {
 
     0%,
@@ -233,7 +256,7 @@ html {
 
 .animate-gradient-shift {
     background-size: 200% 200%;
-    animation: gradient-shift 15s ease infinite;
+    animation: gradient-shift 3s ease infinite;
 }
 
 @keyframes blob {
@@ -271,7 +294,7 @@ html {
 
 .projects-carousel .slick-dots li button:before {
     font-size: 12px;
-    color: #8b5cf6;
+    color: #f8f8fa;
 }
 
 .projects-carousel .slick-dots li.slick-active button:before {
@@ -293,7 +316,7 @@ html {
 
 .projects-carousel .slick-prev:before,
 .projects-carousel .slick-next:before {
-    color: #8b5cf6;
+    color: #f7f6f8;
     font-size: 30px;
 }
 
