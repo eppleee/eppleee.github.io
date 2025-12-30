@@ -292,15 +292,6 @@ html {
     bottom: -40px;
 }
 
-.projects-carousel .slick-dots li button:before {
-    font-size: 12px;
-    color: #f8f8fa;
-}
-
-.projects-carousel .slick-dots li.slick-active button:before {
-    color: #ec4899;
-}
-
 .projects-carousel .slick-prev,
 .projects-carousel .slick-next {
     z-index: 10;
