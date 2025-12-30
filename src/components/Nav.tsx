@@ -7,14 +7,14 @@ export function Nav() {
   const [isDark, setIsDark] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  // Scroll effect: switch navbar to top bar when scrolled past 100px
+  //switch navbar to top bar when scrolled past 100px
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Detect OS dark mode preference (one-time)
+  // Detect OS dark mode preference 
   useEffect(() => {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setIsDark(true);
@@ -36,10 +36,10 @@ export function Nav() {
   return (
     <nav
       className={`
-        fixed z-50 transition-all duration-500 ease-in-out
+        fixed z-50 transition-all duration-500 ease-in-out top
 
         /* UNSCROLLED: left-floating vertical sidebar (default for ALL widths) */
-        ${!isScrolled ? "top-8 left-8 bottom-8 w-24 rounded-3xl shadow-2xl" : ""}
+        ${!isScrolled ? "top-25 left-8 bottom-25 w-24 rounded-3xl shadow-2xl" : ""}
 
         /* SCROLLED: top horizontal bar */
         ${isScrolled ? "top-0 left-0 right-0 h-20 shadow-lg backdrop-blur-md" : ""}

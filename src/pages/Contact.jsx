@@ -70,11 +70,11 @@ export function Contact() {
       <div className="relative max-w-xl mx-auto">
 
         {/* Header */}
-        <h2 className="mb-4 text-3xl font-semibold text-center text-slate-900">
+        <h2 className="mb-4 text-3xl font-semibold text-center text-slate-900 dark:text-white">
           Contact Me
         </h2>
 
-        <p className="max-w-md mx-auto mb-12 text-center text-slate-600">
+        <p className="max-w-md mx-auto mb-12 text-center text-slate-600 dark:text-slate-300">
           Please fill out the form to get into contact with me
         </p>
 
@@ -89,7 +89,7 @@ export function Contact() {
             name="user_name"
             placeholder="Your Name"
             required
-            className="inline-block px-6 py-2 mb-6 border border-pink-200 border-pink-500 rounded-full bg-white/50 dark: bg-gray-800/50 backdrop-blur-sm/20"
+            className="w-full p-3 border rounded-full outline-none inline-block px-6 py-2 mb-6 border-pink-200 dark:border-pink-400 rounded-full bg-white/50 dark:text-slate-900 backdrop-blur-sm/20"
           />
 
           <input
@@ -97,7 +97,7 @@ export function Contact() {
             name="user_email"
             placeholder="Your Email"
             required
-            className="w-full p-3 border rounded-lg outline-none border-slate-300 focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border rounded-full outline-none inline-block px-6 py-2 mb-6 border-pink-200 dark:border-pink-400 rounded-full bg-white/50 dark:text-slate-900 backdrop-blur-sm/20"
           />
 
           <textarea
@@ -105,15 +105,15 @@ export function Contact() {
             rows="5"
             placeholder="Your Message"
             required
-            className="w-full p-3 border rounded-lg outline-none border-slate-300 focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border rounded-lg outline-none inline-block px-6 py-2 mb-6 border-pink-200 dark:border-pink-400 rounded-full bg-white/50 dark:text-slate-900 backdrop-blur-sm/20"
           ></textarea>
 
           {/* Submit Button */}
           <Button
             type="submit"
-            className="flex items-center justify-center w-full gap-2"
+            className="flex items-center justify-center w-full gap-2 bg-pink-200 dark:bg-pink-400 hover:bg-pink-300 dark:hover:bg-pink-500 font-medium rounded-lg px-6 py-2"
           >
-            <Mail className="w-4 h-4" />
+            <Mail className="w-4 h-4 " />
             Send Message
           </Button>
 
@@ -141,7 +141,7 @@ export function Contact() {
         </form>
 
         {/* Footer */}
-        <footer className="pt-8 mt-20 text-center border-t border-slate-200 text-slate-600">
+        <footer className="pt-8 mt-20 text-center border-t bg-white border-slate-200 text-slate-600 dark:bg-gray-800 dark:text-slate-300">
           <p>© 2025 Kourtney Giles. Built with React & Tailwind CSS.</p>
         </footer>
       </div>
