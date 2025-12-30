@@ -73,7 +73,7 @@ export function About() {
     const skillCategories = [
         {
             category: 'Skills & Technologies',
-            skills: ['React', 'TypeScript', 'Java', 'JavaScript', 'C++', 'Python', 'HTML/CSS', 
+            skills: ['React', 'TypeScript', 'Java', 'JavaScript', 'C++', 'Python', 'HTML/CSS',
                 'Tailwind CSS', 'Next.js', 'Node.js', 'SQL', 'GitHub', 'MongoDB', 'Express.js']
         }
     ];
@@ -81,7 +81,7 @@ export function About() {
     return (
         <section
             id="about"
-            className="relative min-h-screen px-4 py-20 bg-white "
+            className="relative min-h-screen px-4 py-20 bg-white shadow-lg backdrop-blur-md "
             ref={sectionRef}
         >
             {/* Pink background container - 40% 60% split on desktop, gradient on mobile */}
@@ -89,6 +89,8 @@ export function About() {
                 {/* Left 40% - white background (hidden on mobile) */}
                 <div className="
           hidden
+          backdrop-blur-md
+
           md:block      
           w-[40%]       
           bg-white
@@ -99,7 +101,9 @@ export function About() {
                 <div className="
           w-full                    
           md:w-[60%]                
-          bg-gradient-to-b          
+          bg-gradient-to-b 
+          backdrop-blur-md
+         
           md:bg-none                
           from-white                
           via-pink-50 
@@ -265,7 +269,7 @@ export function About() {
                         {skillCategories.map((category, index) => (
                             <div
                                 key={index}
-                                className="p-6 bg-white border rounded-lg shadow-sm  border-slate-200"
+                                className="p-6 bg-white border rounded-lg shadow-sm border-slate-200"
                             >
                                 <h4 className="mb-4 text-slate-900">{category.category}</h4>
 
