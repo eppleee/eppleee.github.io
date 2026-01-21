@@ -1,6 +1,4 @@
 @import "tailwindcss";
-
-/* Import project custom styles after Tailwind so utilities can be applied */
+@plugin "tailwindcss-animate";
 @import './styles/global.css';
-
-/* Any additional global custom styles can go here */
+@custom-variant dark (&:is(.dark *));
