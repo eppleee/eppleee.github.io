@@ -1,21 +1,23 @@
-import { Element } from 'react-scroll';
-import React, { useRef } from 'react';
-import emailjs from '@emailjs/browser';
-import linkedin from '../styles/assets/linkedin.png';
-import email from '../styles/assets/email.png';
-import phone from '../styles/assets/phone-call.png';
-import location from '../styles/assets/location-pin.png';
-import github from '../styles/assets/github.png';
-import corner from '../styles/assets/corner-flower.png';
-
-import { Mail } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Send, Sparkles } from "lucide-react";
+import { useState, useRef } from "react";
 import { Button } from '../components/ui/button';
+import emailjs from "@emailjs/browser";
 
 export function Contact() {
   const form = useRef();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const sendEmail = (e) => {
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setSending(true);
+    setStatus("");
 
     emailjs.sendForm(
       'service_f7t5wcs',
@@ -23,128 +25,196 @@ export function Contact() {
       form.current,
       'wp2bHOqdxJjGTZ0rA'
     )
-      .then(() => {
-        alert('Message sent successfully!');
-        e.target.reset();
-      })
-      .catch(() => {
-        alert('Failed to send message, please try again.');
-      });
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          setStatus("Message ! I'll get back to you soon ✨");
+          setFormData({ name: "", email: "", message: "" });
+        },
+        (error) => {
+          console.error("FAILED...", error);
+          setStatus("Oops! Something went wrong. Please try again.");
+        }
+      )
+      .finally(() => setSending(false));
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <section
-      id="contact"
-      className="relative px-4 py-20 bg-white"
-    >
-      <div className="
-        absolute  /* Position absolutely (covers entire section) */
-        inset-0   /* top-0 right-0 bottom-0 left-0 (full coverage) */
-        flex      /* Flexbox layout */
-      ">
-        {/* Left 40% - white background (hidden on mobile) */}
-        <div className="
-          hidden
-          md:block      /* Show on medium screens (768px+) */
-          w-[40%]       /* Width 40% */
-          bg-pink-100
-          dark:bg-pink-500
-        "></div>
-
-        {/* Right 60% - pink background */}
-        <div className="
-          w-full                    /* Full width on mobile */
-          md:w-[60%]                /* 60% width on medium screens (768px+) */
-          bg-gradient-to-b          /* Gradient from top to bottom */
-          md:bg-none                /* No gradient on medium screens+ */
-          from-pink-300                /* Gradient start: white */
-          via-pink-50 
-          to-white
-          md:bg-white 
-            dark:from-gray-800
-            dark:to-gray-800
-            dark:via-pink-750
-            dark:md:bg-gray-800
-        "></div>
-      </div>
-      <div className="relative max-w-xl mx-auto">
-
-        {/* Header */}
-        <h2 className="mb-4 text-3xl font-semibold text-center text-slate-900 dark:text-white">
-          Contact Me
-        </h2>
-
-        <p className="max-w-md mx-auto mb-12 text-center text-slate-600 dark:text-slate-300">
-          Please fill out the form to get into contact with me
-        </p>
-
-        {/* Contact Form */}
-        <form
-          ref={form}
-          onSubmit={sendEmail}
-          className="p-6 space-y-4 bg-white border shadow-lg rounded-xl"
-        >
-          <input
-            type="text"
-            name="user_name"
-            placeholder="Your Name"
-            required
-            className="w-full p-3 border rounded-full outline-none inline-block px-6 py-2 mb-6 border-pink-200 dark:border-pink-400 rounded-full bg-white/50 dark:text-slate-900 backdrop-blur-sm/20"
-          />
-
-          <input
-            type="email"
-            name="user_email"
-            placeholder="Your Email"
-            required
-            className="w-full p-3 border rounded-full outline-none inline-block px-6 py-2 mb-6 border-pink-200 dark:border-pink-400 rounded-full bg-white/50 dark:text-slate-900 backdrop-blur-sm/20"
-          />
-
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Your Message"
-            required
-            className="w-full p-3 border rounded-lg outline-none inline-block px-6 py-2 mb-6 border-pink-200 dark:border-pink-400 rounded-full bg-white/50 dark:text-slate-900 backdrop-blur-sm/20"
-          ></textarea>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            className="flex items-center justify-center w-full gap-2 bg-pink-200 dark:bg-pink-400 hover:bg-pink-300 dark:hover:bg-pink-500 font-medium rounded-lg px-6 py-2"
-          >
-            <Mail className="w-4 h-4 " />
-            Send Message
-          </Button>
-
-          {/* Links section */}
-          <div className="flex justify-center gap-6 mt-4">
-            <a href="https://www.linkedin.com/in/kourtney-giles-/" target="_blank">
-              <img src={linkedin} className="w-8 hover:opacity-80" />
-            </a>
-            <a href="mailto:kourtneygiles@outlook.com">
-              <img src={email} className="w-8 hover:opacity-80" />
-            </a>
-            <a href="tel:+14438103289">
-              <img src={phone} className="w-8 hover:opacity-80" />
-            </a>
-            <a
-              href="https://www.bing.com/maps?q=washing+dc+map"
-              target="_blank"
-            >
-              <img src={location} className="w-8 hover:opacity-80" />
-            </a>
-            <a href="https://github.com/eppleee" target="_blank">
-              <img src={github} className="w-8 hover:opacity-80" />
-            </a>
+    <section id="contact" ref={form}>
+    <div className="font-serif px-4 py-15 bg-[#252c61b9] dark:bg-gradient-to-br-white sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        {/* header */}
+        <div className="mb-12 text-center">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <Sparkles className="w-6 h-6 text-[#dcbddf] dark:text-[#4e62aa]" />
+            <h1 className="text-4xl text-transparent md:text-5xl bg-gradient-to-br
+        from-[#55c2f8]
+        via-[#bab9ff]
+        to-[#dcbddf]
+        dark:from-[#571483]
+        dark:via-[#6277c5]
+        dark:to-[#820886] bg-clip-text">
+              Connect With Me
+            </h1>
+            <Sparkles className="w-6 h-6 text-[#dcbddf] dark:text-[#4e62aa]" />
           </div>
-        </form>
+          <p className="max-w-2xl mx-auto text-white">
+            I'd love to hear from you! Please fill out the form to get into contact with me.
+          </p>
+        </div>
 
-        {/* Footer */}
-        <footer className="pt-8 mt-20 text-center border-t bg-white border-slate-200 text-slate-600 dark:bg-gray-800 dark:text-slate-300">
-          <p>© 2025 Kourtney Giles. Built with React & Tailwind CSS.</p>
-        </footer>
+        <div className="grid gap-8 md:grid-cols-2">
+          {/* my contact info */}
+          <div className="space-y-6">
+            <div className="p-8 border border-pink-100 shadow-xl dark:border-[#252c61b9] backdrop-blur-sm rounded-3xl">
+              <h2 className="mb-6 text-2xl text-transparent bg-gradient-to-br
+        from-[#55c2f8]
+        to-[#dcbddf]
+        dark:from-[#a52af7]
+        dark:to-[#59355a] bg-clip-text">
+                Contact Information
+              </h2>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 group">
+                  <div className="p-3 transition-transform bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl group-hover:scale-110">
+                    <Mail className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <h3 className="mb-1 text-sm text-white">Email</h3>
+                    <a href="mailto:kourtneygiles@outlook.com" className="text-white transition-colors hover:text-[#dcbddf]">
+                      youremail@outlook.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="p-3 transition-transform bg-gradient-to-br from-purple-100 to-blue-100 rounded-xl group-hover:scale-110">
+                    <Phone className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="mb-1 text-sm text-white">Phone</h3>
+                    <a href="tel:+4438103289" className="text-white transition-colors hover:text-[#dcbddf]">
+                      (443) 810-3289
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="p-3 transition-transform bg-gradient-to-br from-blue-100 to-pink-100 rounded-xl group-hover:scale-110">
+                    <MapPin className="w-5 h-5 text-rose-400" />
+                  </div>
+                  <div>
+                    <h3 className="mb-1 text-sm text-white">Location</h3>
+                    <p className="text-white">Washington, DC</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* links */}
+              <div className="pt-8 mt-8 border-t border-pink-100">
+                <h3 className="mb-4 text-sm text-white">Connect with me</h3>
+                <div className="flex gap-3">
+                  <a href="https://www.linkedin.com/in/kourtney-giles-/" target="_blank" rel="noopener noreferrer" className="p-3 transition-transform bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl hover:scale-110">
+                    <Linkedin className="w-5 h-5 text-purple-400" />
+                  </a>
+                  <a href="https://github.com/eppleee" target="_blank" rel="noopener noreferrer" className="p-3 transition-transform bg-gradient-to-br from-purple-100 to-blue-100 rounded-xl hover:scale-110">
+                    <Github className="w-5 h-5 text-blue-400" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-8 border border-purple-100 shadow-xl dark:border-[#252c61b9] backdrop-blur-sm rounded-3xl">
+            <h2 className="mb-6 text-2xl text-transparent bg-gradient-to-br
+        from-[#55c2f8]
+        to-[#bab9ff]
+        dark:from-[#7516b4]
+        dark:to-[#5c74c9] 
+        bg-clip-text">
+              Send a Message
+            </h2>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block mb-2 text-sm text-white">Your Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full p-3 text-black bg-white border-pink-200 focus:border-purple-400 focus:ring-purple-400 rounded-xl"
+                  placeholder="Jane Doe"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block mb-2 text-sm text-white">Your Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full p-3 text-black bg-white border-purple-200 focus:border-blue-400 focus:ring-blue-400 rounded-xl"
+                  placeholder="placeholder@outlook.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block mb-2 text-sm text-white">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={6}
+                  className="w-full p-3 text-black bg-white border-blue-200 resize-none focus:border-pink-400 focus:ring-pink-400 rounded-xl"
+                  placeholder="I'd love to connect with you about..."
+                />
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full py-6 text-white transition-all shadow-lg bg-gradient-to-br
+        from-[#55c2f8]
+        via-[#bab9ff]
+        to-[#dcbddf]
+        dark:from-[#420c66]
+        dark:via-[#4e62aa]
+        dark:to-[#640268] hover:from-[#dcbddf] hover:via-[#bab9ff] hover:to-[#55c2f8] hover:dark:from-[#640268]
+        hover:dark:via-[#4e62aa]
+       hover:dark:to-[#420c66] rounded-xl hover:scale-105"
+                disabled={sending}
+              >
+                <Send className="w-4 h-4 mr-2" />
+                {sending ? "Sending..." : "Send Message"}
+              </Button>
+
+              {status && <p className="mt-2 text-sm text-center text-gray-700">{status}</p>}
+            </form>
+          </div>
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-sm text-white">
+            Looking forward to hearing from you!💗
+          </p>
+        </div>
       </div>
+    </div>
     </section>
   );
 }
