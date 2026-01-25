@@ -307,7 +307,6 @@ html {
 
 .projects-carousel .slick-prev:before,
 .projects-carousel .slick-next:before {
-    color: #f7f6f8;
     font-size: 30px;
 }
 
@@ -334,4 +333,20 @@ html {
     .projects-carousel .slick-next {
         display: none !important;
     }
+}
+
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
 }
