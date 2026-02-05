@@ -1,127 +1,196 @@
-import React, { useState, useEffect } from 'react';
-import { Element } from 'react-scroll';
-import '../pages/pages.css';
-import flowerStars from '../assets/petals-with-stars.png';
-import treeFlower from '../assets/rightside-flowers.png';
-import flowerr from '../assets/flowerr.png';
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'motion/react';
+import { Code2, Lightbulb, Wrench, Sparkles } from 'lucide-react';
 
-/*importing my about images */
-import gradImg from '../assets/grad-photo.jpeg';
-import secondImg from '../assets/gradImg2.jpeg';
-import thirdImg from '../assets/gradImg3.jpeg';
-import forthImg from '../assets/group4.jpeg';
-import fifthImg from '../assets/kourtneyT.jpeg';
-import sixthImg from '../assets/olgroup.jpeg';
-import seventhImg from '../assets/olpic.jpeg';
-
-
-/*imports of all my lang images*/
-import jsImg from '../assets/js.png';
-import reactImg from '../assets/library.png';
-import htmlImg from '../assets/html.png';
-import cssImg from '../assets/c-.png';
-import sqlImg from '../assets/sql-server.png';
-import pythonImg from '../assets/python.png';
-import javaImg from '../assets/java.png';
-
-function About() {
-
-    const images = [gradImg, secondImg, thirdImg,];
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    const nextImage = () => {
-        setCurrentIndex(prevIndex =>
-            prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
-    };
-
-    const prevImage = () => {
-        setCurrentIndex(prevIndex =>
-            prevIndex === 0 ? images.length - 1 : prevIndex - 1
-        );
-    };
+export function About() {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef(null);
 
     useEffect(() => {
-        const els = document.querySelectorAll('.about-text p, .about-text2 p');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
                 if (entry.isIntersecting) {
-                    const parent = entry.target.closest('.about-text, .about-text2');
-                    const siblings = parent ? Array.from(parent.querySelectorAll('p')) : [];
-                    const index = siblings.indexOf(entry.target);
-
-                    const delayMs = 300;
-                    entry.target.style.transitionDelay = `${index * delayMs}ms`;
-
-                    entry.target.classList.add('show');
+                    setIsVisible(true);
                 }
-            });
-        }, {
-            threshold: 0.12,
-            rootMargin: '0px 0px -8% 0px'
-        });
+            },
+            { threshold: 0.2 }
+        );
 
-        els.forEach(el => observer.observe(el));
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
 
-        return () => observer.disconnect();
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
     }, []);
 
+    const highlights = [
+        {
+            icon: Code2,
+            title: "My Journey",
+            description: "From zero coding experience to a full-stack web developer, my journey is fueled by curiosity, growth, and a love for creating.",
+            gradient: "from-[#d6b1da] to-[#a19ff8]"
+        },
+        {
+            icon: Lightbulb,
+            title: "What Inspires Me",
+            description: "I love coming up with clean, cool interfaces and bringing ideas to life with code, animations, and thoughtful designs.",
+            gradient: "from-[#a19ff8] to-[#74cbf7]"
+        },
+        {
+            icon: Wrench,
+            title: "How I Work",
+            description: "I focus on accessible, efficient, and maintainable web experiences, constantly learning new tools and techniques.",
+            gradient: "from-[#74cbf7] to-[#d6b1da]"
+        }
+    ];
+
+    const skillsData = {
+        frontend: {
+            title: "Frontend",
+            skills: ["JavaScript", "React", "Next.js", "TypeScript", "HTML5", "TailwindCSS", "Python"],
+            gradient: "from-[#d6b1da] via-[#a19ff8] to-[#98a8da]"
+        },
+        backend: {
+            title: "Backend",
+            skills: ["Node.js", "Express", "MongoDB", "SQL", "Java", "C++", "RESTful APIs"],
+            gradient: "from-[#a19ff8] via-[#74cbf7] to-[#55c2f8]"
+        },
+        tools: {
+            title: "Tools & Technologies",
+            skills: ["Git", "GitHub", "VS Code", "npm"],
+            gradient: "from-[#74cbf7] via-[#d6b1da] to-[#d6b1da]"
+        }
+    };
+
     return (
-        <>
-            <Element name="about">
-                <section className="about-section">
-                    <div className="about-container">
-                        <div className="about-text">
-                            <p>I am a recent graduate from Towson University with a passion for web development and technology. Inspired by the ever-evolving digital world, I strive to create engaging, user-friendly, and efficient web experiences. My technical skills include React, HTML, JavaScript, C++, SQL, Java, and Python, which I continuously develop through projects and hands-on learning. I love coding and genuinely enjoy the process, which motivates me to work hard and go above and beyond in everything I do. I’m also a fast learner and enjoy collaborating with others to create the best possible solutions.</p>
-                            <p>My mission is to leverage technology to build accessible, impactful websites and applications that connect people and solve real-world problems. I am dedicated to lifelong learning and innovation, aiming to grow as a developer who can contribute meaningfully to the tech community.</p>
-                        </div>
+        <section
+            id="about"
+            className="relative z-0 min-h-screen px-4 py-20 overflow-hidden font-serif"
+            ref={sectionRef}
+        >
+            <div
+                className="absolute inset-0 -z-10 bg-gradient-to-b from-[#252c61b7] via-[#252c61a4]/90 to-transparent
+  "
+            /><div className="mx-auto max-w-7xl">
 
-                        <div className="about-image-wrapper">
-                            <div className="image-caption">About Me</div>
-                            <button className="arrow left" onClick={prevImage}>
-                                &#10094;
-                            </button>
-                            <img
-                                src={images[currentIndex]}
-                                alt="About Me"
-                                className="about-image"
-                            />
-                            <button className="arrow right" onClick={nextImage}>
-                                &#10095;
-                            </button>
-
-                            <div className="languages">
-                                <img src={jsImg} alt="JavaScript" className="lang-image" />
-                                <img src={reactImg} alt="React" className="lang-image" />
-                                <img src={htmlImg} alt="HTML" className="lang-image" />
-                                <img src={cssImg} alt="CSS" className="lang-image" />
-                                <img src={sqlImg} alt="SQL" className="lang-image" />
-                                <img src={pythonImg} alt="Python" className="lang-image" />
-                                <img src={javaImg} alt="Java" className="lang-image" />
-                            </div>
-                        </div>
-                        <div className="about-text2">
-                            <p>I hope to specialize in front-end development, crafting intuitive and beautiful user interfaces that enhance the digital experience for users everywhere.</p>
-                            <p>Before college, I had no experience with coding or programming. But through determination and a strong willingness to learn, I quickly grew to love coding and pushed myself every day to improve. I am proud to have earned my bachelor’s degree while developing the skills and passion that continue to drive me today.</p>
-                        </div>
+                {/*header*/}
+                <motion.div
+                    className="mb-20 text-center"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                    <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-gradient-to-r from-[#d6b1da]/20 to-[#55c2f8]/20 dark:from-[#6b0f6e]/20 dark:to-[#420c66]/20 backdrop-blur-sm">
+                        <Sparkles className="w-4 h-4 text-[#a19ff8] dark:text-[#98a8da]" />
+                        <span className="text-sm font-medium text-white/90">
+                            Full-Stack Developer
+                        </span>
                     </div>
 
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower1" />
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower2" />
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower3" />
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower4" />
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower5" />
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower6" />
-                    <img src={flowerStars} alt="flower-stars" className="flower-stars flower7" />
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-transparent bg-gradient-to-br from-[#ead1ec] via-[#bfbefa] to-[#74ccf8] dark:from-[#761c79] dark:via-[#98a8da] dark:to-[#67149e] bg-clip-text">
+                        About Me
+                    </h1>
 
-                </section>
-                <section className="backgroundImg">
-                    <img src={treeFlower} alt="rightside-flowers" className="tree-flower" />
-                    <img src={flowerr} alt="flower" className="flower" />
-                </section>
-            </Element>
-        </>
+                    <p className="mx-auto leading-relaxed max-w-1xl md:text-xl text-white/90">
+                        I'm a passionate web developer who transforms ideas into beautiful, functional digital experiences.
+                        With a strong foundation in modern web technologies and an eye for design,
+                        I create user-centered solutions that make an impact.
+                    </p>
+                </motion.div>
+
+                {/* cards */}
+                <div className="grid gap-6 mb-24 md:grid-cols-3">
+                    {highlights.map((item, index) => (
+                        <motion.div
+                            key={item.title}
+                            className="relative group"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                            transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                        >
+                            <div className="relative h-full p-8 rounded-2xl bg-white dark:bg-[#252c61b9] shadow-lg hover:shadow-2xl transition-all duration-300 border border-transparent hover:border-[#a19ff8]/30 dark:hover:border-[#98a8da]/30">
+                                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${item.gradient} mb-4`}>
+                                    <item.icon className="w-6 h-6 text-white" />
+                                </div>
+
+                                <h3 className="text-xl font-bold mb-3 text-[#252c61b9] dark:text-white">
+                                    {item.title}
+                                </h3>
+                                <p className="text-[#252c61b9]/80 dark:text-white/70 leading-relaxed">
+                                    {item.description}
+                                </p>
+
+                                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                    <h2 className="text-4xl md:text-5xl leading-snug mb-12 text-center text-transparent bg-gradient-to-br from-[#ead1ec] via-[#bfbefa] to-[#74ccf8] dark:from-[#761c79] dark:via-[#98a8da] dark:to-[#67149e] bg-clip-text">
+                        Technologies & Skills
+                    </h2>
+
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        {Object.entries(skillsData).map(([key, category], categoryIndex) => (
+                            <motion.div
+                                key={key}
+                                className="relative group"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.5, delay: 0.8 + categoryIndex * 0.1 }}
+                            >
+                                <div className="h-full p-8 rounded-2xl bg-white dark:bg-[#252c61b9] shadow-lg hover:shadow-2xl transition-all duration-300">
+                                    <div className="mb-6">
+                                        <h3 className={`text-2xl font-bold text-transparent bg-gradient-to-r ${category.gradient} bg-clip-text`}>
+                                            {category.title}
+                                        </h3>
+                                        <div className={`h-1 w-16 mt-2 rounded-full bg-gradient-to-r ${category.gradient}`} />
+                                    </div>
+
+                                    {/* tech */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {category.skills.map((skill, skillIndex) => (
+                                            <motion.span
+                                                key={skill}
+                                                className={`px-3 py-1.5 text-sm font-medium rounded-lg bg-gradient-to-r ${category.gradient} text-white shadow-sm`}
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                                                transition={{
+                                                    duration: 0.3,
+                                                    delay: 0.9 + categoryIndex * 0.1 + skillIndex * 0.05
+                                                }}
+                                                whileHover={{ scale: 1.05, y: -2 }}
+                                            >
+                                                {skill}
+                                            </motion.span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${category.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300 -z-10`} />
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    className="mt-0 text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.8, delay: 1.2 }}
+                >
+                </motion.div>
+            </div>
+        </section>
     );
 }
 
